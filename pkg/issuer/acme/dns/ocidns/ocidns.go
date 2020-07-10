@@ -1,5 +1,8 @@
 // +skip_license_check
 
+// Copyright (C) 2020, Oracle and/or its affiliates.
+// Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
 // Package ocidns implements a DNS provider for solving the DNS-01 challenge
 // using OCI DNS.
 package ocidns
@@ -11,7 +14,6 @@ import (
 	"github.com/oracle/oci-go-sdk/common"
 	"github.com/oracle/oci-go-sdk/common/auth"
 	ocidns "github.com/oracle/oci-go-sdk/dns"
-	"gopkg.in/yaml.v2"
 	"k8s.io/klog"
 )
 
