@@ -1,3 +1,6 @@
+# Copyright (C) 2020, Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
 # gazelle:repository_macro hack/build/repos.bzl%go_repositories
 workspace(name = "com_github_jetstack_cert_manager")
 
