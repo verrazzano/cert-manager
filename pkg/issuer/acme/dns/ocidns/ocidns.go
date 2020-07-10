@@ -14,6 +14,7 @@ import (
 	"github.com/oracle/oci-go-sdk/common"
 	"github.com/oracle/oci-go-sdk/common/auth"
 	ocidns "github.com/oracle/oci-go-sdk/dns"
+	"gopkg.in/yaml.v2"
 	"k8s.io/klog"
 )
 
