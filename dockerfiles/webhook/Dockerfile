@@ -1,5 +1,5 @@
 # builder image
-FROM oraclelinux:7.8 as cert_base
+FROM container-registry.oracle.com/os/oraclelinux:7.8 as cert_base
 
 RUN yum update -y \
     && yum-config-manager --save --setopt=ol7_ociyum_config.skip_if_unavailable=true \
@@ -32,7 +32,7 @@ COPY . /root/src/webhook/.
 
 RUN make webhook
 
-FROM oraclelinux:7-slim
+FROM container-registry.oracle.com/os/oraclelinux:7-slim
 
 COPY --from=cert_base /root/src/webhook/bazel-bin/cmd/webhook/linux_amd64_pure_stripped/webhook.runfiles/com_github_jetstack_cert_manager/cmd/webhook/linux_amd64_pure_stripped/webhook /usr/bin/webhook
 

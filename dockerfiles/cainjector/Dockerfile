@@ -1,5 +1,5 @@
 # builder image
-FROM oraclelinux:7.8 as cert_base
+FROM container-registry.oracle.com/os/oraclelinux:7.8 as cert_base
 
 RUN yum update -y \
     && yum-config-manager --save --setopt=ol7_ociyum_config.skip_if_unavailable=true \
@@ -32,7 +32,7 @@ COPY . /root/src/cainjector/.
 
 RUN make cainjector
 
-FROM oraclelinux:7-slim
+FROM container-registry.oracle.com/os/oraclelinux:7-slim
 
 COPY --from=cert_base /root/src/cainjector/bazel-bin/cmd/cainjector/linux_amd64_pure_stripped/cainjector.runfiles/com_github_jetstack_cert_manager/cmd/cainjector/linux_amd64_pure_stripped/cainjector /usr/bin/cainjector
 
