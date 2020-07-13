@@ -14,7 +14,6 @@ import (
 
 	"github.com/stretchr/testify/assert"
 
-	//  "fmt"
 	yaml "gopkg.in/yaml.v2"
 )
 
@@ -76,17 +75,8 @@ func loadConfig() {
 
 	ociConfigBytes, err = yaml.Marshal(ociConfig)
 	fqdn = "_acme-challenge." + ociDnsZone + "."
-	// debug your Config if Needed, uncomment
-	//	fmt.Println(string(ociConfigBytes))
-
 }
 
-//func NewDNSProvider(
-//	useInstancePrincipals bool,
-//	zoneName string,
-//	compartmentId string,
-//	keyData []byte,
-//	dns01Nameservers []string) (*DNSProvider, error) {
 func TestLiveOciDnsPresent(t *testing.T) {
 	if !ociLiveTest {
 		t.Skip("skipping live test")
