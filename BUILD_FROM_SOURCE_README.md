@@ -6,8 +6,6 @@ The base tag this release is branched from is `v1.2`
 ## Requirements
 **bazel : any version >= 0.22.0**
 
-[Install Bazel - macOS](https://docs.bazel.build/versions/master/install-os-x.html)  
-
 [GitHub Releases](https://github.com/bazelbuild/bazel/releases)  
 
 Verify Build and Generate Images Locally 
@@ -39,7 +37,7 @@ docker push ${DOCKER_REPO}/${DOCKER_NAMESPACE}/cert-manager-acmesolver:${DOCKER_
 ## How to Run local unit tests  
 
 ### Run OCI DNS tests
-Note: this will add an _acme-challenge to the OCI Dns Zone of your choice. 
+Note: this will add an `_acme-challenge` to the OCI DNS Zone of your choice. 
 
 ```
 export OCI_ZONE_NAME=< your test zone >
