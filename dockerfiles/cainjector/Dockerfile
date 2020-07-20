@@ -2,7 +2,7 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
 # builder image
-FROM container-registry.oracle.com/os/oraclelinux:7.8 as cert_base
+FROM container-registry.oracle.com/os/oraclelinux:7.8@sha256:46fc083cf0250ed5260fa6fe822d7d4c139ca1f7fc38e4a17ba662464bd1df4a as cert_base
 
 RUN yum update -y \
     && yum-config-manager --save --setopt=ol7_ociyum_config.skip_if_unavailable=true \
@@ -35,7 +35,7 @@ COPY . /root/src/cainjector/.
 
 RUN make cainjector
 
-FROM container-registry.oracle.com/os/oraclelinux:7-slim
+FROM container-registry.oracle.com/os/oraclelinux:7-slim@sha256:9b86d1332a883ee8f68dd44ba42133de518b2e0ec1cc70257e59fb4da86b1ad3
 
 COPY --from=cert_base /root/src/cainjector/bazel-bin/cmd/cainjector/linux_amd64_pure_stripped/cainjector.runfiles/com_github_jetstack_cert_manager/cmd/cainjector/linux_amd64_pure_stripped/cainjector /usr/bin/cainjector
 
