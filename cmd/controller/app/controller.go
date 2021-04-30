@@ -102,7 +102,10 @@ func Run(opts *options.ControllerOptions, stopCh <-chan struct{}) {
 				defer wg.Done()
 				log.V(logf.InfoLevel).Info("starting controller")
 
-				workers := 5
+				// 5 workers is the cert-manager default
+				// reducing to help avoid dyndns race conditions
+				// that arise with concurrent zone publishes
+				workers := 1
 				err := fn.Run(workers, stopCh)
 
 				if err != nil {

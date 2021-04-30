@@ -350,6 +350,12 @@ type ACMEChallengeSolverDNS01 struct {
 	// DNS01 challenge records.
 	// +optional
 	Webhook *ACMEIssuerDNS01ProviderWebhook `json:"webhook,omitempty"`
+
+	// +optional
+	DynDNS *ACMEIssuerDNS01ProviderDynDNS `json:"dyndns,omitempty"`
+
+	// +optional
+	OCIDNS *ACMEIssuerDNS01ProviderOCIDNS `json:"ocidns,omitempty"`
 }
 
 // CNAMEStrategy configures how the DNS01 provider should handle CNAME records
@@ -553,4 +559,23 @@ type ACMEIssuerStatus struct {
 	// associated with the  Issuer
 	// +optional
 	LastRegisteredEmail string `json:"lastRegisteredEmail,omitempty"`
+}
+
+// ACMEIssuerDNS01ProviderDynDNS is a structure containing the DNS
+// configuration for DynDNS DNS—Zone Record Management API
+type ACMEIssuerDNS01ProviderDynDNS struct {
+	DynUsername     cmmeta.SecretKeySelector `json:"clientTokenSecretRef"`
+	DynPassword     cmmeta.SecretKeySelector `json:"clientSecretSecretRef"`
+	DynCustomerName cmmeta.SecretKeySelector `json:"accessTokenSecretRef"`
+	DynZoneName     string                   `json:"dynzonename"`
+}
+
+// ACMEIssuerDNS01ProviderOCIDNS is a structure containing the DNS
+// configuration for OCIDNS DNS—Zone Record Management API
+type ACMEIssuerDNS01ProviderOCIDNS struct {
+	// +optional
+	UseInstancePrincipals bool                      `json:"useInstancePrincipals"`
+	ServiceAccount        *cmmeta.SecretKeySelector `json:"serviceAccountSecretRef,omitempty"`
+	CompartmentId         string                    `json:"compartmentid,omitempty"`
+	OciZoneName           string                    `json:"ocizonename"`
 }

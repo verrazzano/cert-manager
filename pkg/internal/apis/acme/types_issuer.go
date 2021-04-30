@@ -290,6 +290,12 @@ type ACMEChallengeSolverDNS01 struct {
 	// Use the AWS Route53 API to manage DNS01 challenge records.
 	Route53 *ACMEIssuerDNS01ProviderRoute53
 
+	// +optional
+	OCIDNS *ACMEIssuerDNS01ProviderOCIDNS `json:"ocidns,omitempty"`
+
+	// +optional
+	DynDNS *ACMEIssuerDNS01ProviderDynDNS `json:"dyndns,omitempty"`
+
 	// Use the Microsoft Azure DNS API to manage DNS01 challenge records.
 	AzureDNS *ACMEIssuerDNS01ProviderAzureDNS
 
@@ -364,6 +370,25 @@ type ACMEIssuerDNS01ProviderCloudflare struct {
 // configuration for DigitalOcean Domains
 type ACMEIssuerDNS01ProviderDigitalOcean struct {
 	Token cmmeta.SecretKeySelector
+}
+
+// ACMEIssuerDNS01ProviderDynDNS is a structure containing the DNS
+// configuration for DynDNS DNS—Zone Record Management API
+type ACMEIssuerDNS01ProviderDynDNS struct {
+	DynUsername     cmmeta.SecretKeySelector `json:"clientTokenSecretRef"`
+	DynPassword     cmmeta.SecretKeySelector `json:"clientSecretSecretRef"`
+	DynCustomerName cmmeta.SecretKeySelector `json:"accessTokenSecretRef"`
+	DynZoneName     string                   `json:"dynzonename"`
+}
+
+// ACMEIssuerDNS01ProviderOCIDNS is a structure containing the DNS
+// configuration for OCIDNS DNS—Zone Record Management API
+type ACMEIssuerDNS01ProviderOCIDNS struct {
+	// +optional
+	UseInstancePrincipals bool                      `json:"useInstancePrincipals"`
+	ServiceAccount        *cmmeta.SecretKeySelector `json:"serviceAccountSecretRef,omitempty"`
+	CompartmentId         string                    `json:"compartmentid,omitempty"`
+	OciZoneName           string                    `json:"ocizonename"`
 }
 
 // ACMEIssuerDNS01ProviderRoute53 is a structure containing the Route 53

@@ -1306,6 +1306,14 @@ def go_repositories():
         version = "v0.0.0-20140419014527-cca7078d478f",
     )
     go_repository(
+        name = "com_github_nesv_go_dynect",
+        build_file_generation = "on",
+        build_file_proto_mode = "disable",
+        importpath = "github.com/nesv/go-dynect",
+        sum = "h1:Ow/DiSm4LAISwnFku/FITSQHnU6pBvhQMsUE5Gu6Oq4=",
+        version = "v0.6.0",
+    )
+    go_repository(
         name = "com_github_nvveen_gotty",
         build_file_generation = "on",
         build_file_proto_mode = "disable",
@@ -1328,6 +1336,14 @@ def go_repositories():
         importpath = "github.com/oklog/run",
         sum = "h1:Ru7dDtJNOyC66gQ5dQmaCa0qIsAUFY3sFpK1Xk8igrw=",
         version = "v1.0.0",
+    )
+    go_repository(
+        name = "com_github_oracle_oci_go_sdk",
+        build_file_generation = "on",
+        build_file_proto_mode = "disable",
+        importpath = "github.com/oracle/oci-go-sdk",
+        sum = "h1:4BbhAM6wz7u9vtYrBMCPeQ2oRV9oaaqsHenErPvpQs4=",
+        version = "v16.0.0+incompatible",
     )
     go_repository(
         name = "com_github_onsi_ginkgo",
@@ -3009,6 +3025,14 @@ def go_repositories():
         importpath = "github.com/codahale/hdrhistogram",
         sum = "h1:qMd81Ts1T2OTKmB4acZcyKaMtRnY5Y44NuXGX2GFJ1w=",
         version = "v0.0.0-20161010025455-3a0bb77429bd",
+    )
+    go_repository(
+        name = "com_github_dnaeon_go_vcr",
+        build_file_generation = "on",
+        build_file_proto_mode = "disable",
+        importpath = "github.com/dnaeon/go-vcr",
+        sum = "h1:r8L/HqC0Hje5AXMu1ooW8oyQyOFv4GxqpL0nRP7SLLY=",
+        version = "v1.0.1",
     )
     go_repository(
         name = "com_github_edsrzf_mmap_go",

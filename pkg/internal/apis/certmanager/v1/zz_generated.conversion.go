@@ -790,7 +790,17 @@ func Convert_certmanager_ClusterIssuer_To_v1_ClusterIssuer(in *certmanager.Clust
 
 func autoConvert_v1_ClusterIssuerList_To_certmanager_ClusterIssuerList(in *v1.ClusterIssuerList, out *certmanager.ClusterIssuerList, s conversion.Scope) error {
 	out.ListMeta = in.ListMeta
-	out.Items = *(*[]certmanager.ClusterIssuer)(unsafe.Pointer(&in.Items))
+	if in.Items != nil {
+		in, out := &in.Items, &out.Items
+		*out = make([]certmanager.ClusterIssuer, len(*in))
+		for i := range *in {
+			if err := Convert_v1_ClusterIssuer_To_certmanager_ClusterIssuer(&(*in)[i], &(*out)[i], s); err != nil {
+				return err
+			}
+		}
+	} else {
+		out.Items = nil
+	}
 	return nil
 }
 
@@ -801,7 +811,17 @@ func Convert_v1_ClusterIssuerList_To_certmanager_ClusterIssuerList(in *v1.Cluste
 
 func autoConvert_certmanager_ClusterIssuerList_To_v1_ClusterIssuerList(in *certmanager.ClusterIssuerList, out *v1.ClusterIssuerList, s conversion.Scope) error {
 	out.ListMeta = in.ListMeta
-	out.Items = *(*[]v1.ClusterIssuer)(unsafe.Pointer(&in.Items))
+	if in.Items != nil {
+		in, out := &in.Items, &out.Items
+		*out = make([]v1.ClusterIssuer, len(*in))
+		for i := range *in {
+			if err := Convert_certmanager_ClusterIssuer_To_v1_ClusterIssuer(&(*in)[i], &(*out)[i], s); err != nil {
+				return err
+			}
+		}
+	} else {
+		out.Items = nil
+	}
 	return nil
 }
 
@@ -871,7 +891,16 @@ func Convert_certmanager_IssuerCondition_To_v1_IssuerCondition(in *certmanager.I
 }
 
 func autoConvert_v1_IssuerConfig_To_certmanager_IssuerConfig(in *v1.IssuerConfig, out *certmanager.IssuerConfig, s conversion.Scope) error {
-	out.ACME = (*acme.ACMEIssuer)(unsafe.Pointer(in.ACME))
+	if in.ACME != nil {
+		in, out := &in.ACME, &out.ACME
+		*out = new(acme.ACMEIssuer)
+		// TODO: Inefficient conversion - can we improve it?
+		if err := s.Convert(*in, *out, 0); err != nil {
+			return err
+		}
+	} else {
+		out.ACME = nil
+	}
 	out.CA = (*certmanager.CAIssuer)(unsafe.Pointer(in.CA))
 	out.Vault = (*certmanager.VaultIssuer)(unsafe.Pointer(in.Vault))
 	out.SelfSigned = (*certmanager.SelfSignedIssuer)(unsafe.Pointer(in.SelfSigned))
@@ -885,7 +914,16 @@ func Convert_v1_IssuerConfig_To_certmanager_IssuerConfig(in *v1.IssuerConfig, ou
 }
 
 func autoConvert_certmanager_IssuerConfig_To_v1_IssuerConfig(in *certmanager.IssuerConfig, out *v1.IssuerConfig, s conversion.Scope) error {
-	out.ACME = (*acmev1.ACMEIssuer)(unsafe.Pointer(in.ACME))
+	if in.ACME != nil {
+		in, out := &in.ACME, &out.ACME
+		*out = new(acmev1.ACMEIssuer)
+		// TODO: Inefficient conversion - can we improve it?
+		if err := s.Convert(*in, *out, 0); err != nil {
+			return err
+		}
+	} else {
+		out.ACME = nil
+	}
 	out.CA = (*v1.CAIssuer)(unsafe.Pointer(in.CA))
 	out.Vault = (*v1.VaultIssuer)(unsafe.Pointer(in.Vault))
 	out.SelfSigned = (*v1.SelfSignedIssuer)(unsafe.Pointer(in.SelfSigned))
@@ -900,7 +938,17 @@ func Convert_certmanager_IssuerConfig_To_v1_IssuerConfig(in *certmanager.IssuerC
 
 func autoConvert_v1_IssuerList_To_certmanager_IssuerList(in *v1.IssuerList, out *certmanager.IssuerList, s conversion.Scope) error {
 	out.ListMeta = in.ListMeta
-	out.Items = *(*[]certmanager.Issuer)(unsafe.Pointer(&in.Items))
+	if in.Items != nil {
+		in, out := &in.Items, &out.Items
+		*out = make([]certmanager.Issuer, len(*in))
+		for i := range *in {
+			if err := Convert_v1_Issuer_To_certmanager_Issuer(&(*in)[i], &(*out)[i], s); err != nil {
+				return err
+			}
+		}
+	} else {
+		out.Items = nil
+	}
 	return nil
 }
 
@@ -911,7 +959,17 @@ func Convert_v1_IssuerList_To_certmanager_IssuerList(in *v1.IssuerList, out *cer
 
 func autoConvert_certmanager_IssuerList_To_v1_IssuerList(in *certmanager.IssuerList, out *v1.IssuerList, s conversion.Scope) error {
 	out.ListMeta = in.ListMeta
-	out.Items = *(*[]v1.Issuer)(unsafe.Pointer(&in.Items))
+	if in.Items != nil {
+		in, out := &in.Items, &out.Items
+		*out = make([]v1.Issuer, len(*in))
+		for i := range *in {
+			if err := Convert_certmanager_Issuer_To_v1_Issuer(&(*in)[i], &(*out)[i], s); err != nil {
+				return err
+			}
+		}
+	} else {
+		out.Items = nil
+	}
 	return nil
 }
 

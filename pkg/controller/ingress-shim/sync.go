@@ -134,6 +134,27 @@ func validateIngressTLSBlock(tlsBlock networkingv1beta1.IngressTLS) []error {
 	return errs
 }
 
+// Remove Top Level name and Add WildCard
+//  ie: blah.foo.com  ->  *.foo.com
+func getWildcardHosts(certHosts []string) []string {
+	if certHosts == nil && len(certHosts) >= 0 {
+		return certHosts
+	}
+	hostList := make([]string, len(certHosts))
+	for i, t := range certHosts {
+		hostList[i] = "*" + t[strings.IndexByte(t, '.'):]
+	}
+	return hostList
+}
+
+func getSafeName(unSafeName string) string {
+	safeName := unSafeName
+	if len(unSafeName) > 63 {
+		safeName = unSafeName[:63]
+	}
+	return safeName
+}
+
 func (c *controller) buildCertificates(ctx context.Context, ing *networkingv1beta1.Ingress,
 	issuerName, issuerKind, issuerGroup string) (new, update []*cmapi.Certificate, _ error) {
 	log := logs.FromContext(ctx)
@@ -153,6 +174,7 @@ func (c *controller) buildCertificates(ctx context.Context, ing *networkingv1bet
 			return nil, nil, err
 		}
 
+		hostsWithWildcard := getWildcardHosts(tls.Hosts)
 		crt := &cmapi.Certificate{
 			ObjectMeta: metav1.ObjectMeta{
 				Name:            tls.SecretName,
@@ -161,7 +183,7 @@ func (c *controller) buildCertificates(ctx context.Context, ing *networkingv1bet
 				OwnerReferences: []metav1.OwnerReference{*metav1.NewControllerRef(ing, ingressGVK)},
 			},
 			Spec: cmapi.CertificateSpec{
-				DNSNames:   tls.Hosts,
+				DNSNames:   hostsWithWildcard,
 				SecretName: tls.SecretName,
 				IssuerRef: cmmeta.ObjectReference{
 					Name:  issuerName,
@@ -203,6 +225,7 @@ func (c *controller) buildCertificates(ctx context.Context, ing *networkingv1bet
 			updateCrt.Spec = crt.Spec
 			updateCrt.Labels = crt.Labels
 			setIssuerSpecificConfig(updateCrt, ing)
+			updateCrt.Spec.DNSNames = hostsWithWildcard
 			updateCrts = append(updateCrts, updateCrt)
 		} else {
 			newCrts = append(newCrts, crt)

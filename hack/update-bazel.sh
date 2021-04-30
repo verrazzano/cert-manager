@@ -30,8 +30,8 @@ else
   exit 0
 fi
 
-gazelle=$(realpath "$1")
-kazel=$(realpath "$2")
+gazelle=$(readlink "$1")
+kazel=$(readlink "$2")
 
 cd "$BUILD_WORKSPACE_DIRECTORY"
 

@@ -20,24 +20,15 @@ load("@bazel_skylib//lib:types.bzl", "types")
 SERVER_PLATFORMS = {
     "linux": [
         "amd64",
-        "arm64",
-        "arm",
-        "ppc64le",
-        "s390x",
     ],
 }
 
 CLIENT_PLATFORMS = {
     "linux": [
         "amd64",
-        "arm64",
-        "arm",
-        "ppc64le",
-        "s390x",
     ],
     "darwin": [
         "amd64",
-        "arm64",
     ],
     "windows": [
         "amd64",

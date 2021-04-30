@@ -231,6 +231,26 @@ func RegisterConversions(s *runtime.Scheme) error {
 	}); err != nil {
 		return err
 	}
+	if err := s.AddGeneratedConversionFunc((*v1alpha2.ACMEIssuerDNS01ProviderDynDNS)(nil), (*acme.ACMEIssuerDNS01ProviderDynDNS)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_v1alpha2_ACMEIssuerDNS01ProviderDynDNS_To_acme_ACMEIssuerDNS01ProviderDynDNS(a.(*v1alpha2.ACMEIssuerDNS01ProviderDynDNS), b.(*acme.ACMEIssuerDNS01ProviderDynDNS), scope)
+	}); err != nil {
+		return err
+	}
+	if err := s.AddGeneratedConversionFunc((*acme.ACMEIssuerDNS01ProviderDynDNS)(nil), (*v1alpha2.ACMEIssuerDNS01ProviderDynDNS)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_acme_ACMEIssuerDNS01ProviderDynDNS_To_v1alpha2_ACMEIssuerDNS01ProviderDynDNS(a.(*acme.ACMEIssuerDNS01ProviderDynDNS), b.(*v1alpha2.ACMEIssuerDNS01ProviderDynDNS), scope)
+	}); err != nil {
+		return err
+	}
+	if err := s.AddGeneratedConversionFunc((*v1alpha2.ACMEIssuerDNS01ProviderOCIDNS)(nil), (*acme.ACMEIssuerDNS01ProviderOCIDNS)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_v1alpha2_ACMEIssuerDNS01ProviderOCIDNS_To_acme_ACMEIssuerDNS01ProviderOCIDNS(a.(*v1alpha2.ACMEIssuerDNS01ProviderOCIDNS), b.(*acme.ACMEIssuerDNS01ProviderOCIDNS), scope)
+	}); err != nil {
+		return err
+	}
+	if err := s.AddGeneratedConversionFunc((*acme.ACMEIssuerDNS01ProviderOCIDNS)(nil), (*v1alpha2.ACMEIssuerDNS01ProviderOCIDNS)(nil), func(a, b interface{}, scope conversion.Scope) error {
+		return Convert_acme_ACMEIssuerDNS01ProviderOCIDNS_To_v1alpha2_ACMEIssuerDNS01ProviderOCIDNS(a.(*acme.ACMEIssuerDNS01ProviderOCIDNS), b.(*v1alpha2.ACMEIssuerDNS01ProviderOCIDNS), scope)
+	}); err != nil {
+		return err
+	}
 	if err := s.AddGeneratedConversionFunc((*v1alpha2.ACMEIssuerDNS01ProviderRFC2136)(nil), (*acme.ACMEIssuerDNS01ProviderRFC2136)(nil), func(a, b interface{}, scope conversion.Scope) error {
 		return Convert_v1alpha2_ACMEIssuerDNS01ProviderRFC2136_To_acme_ACMEIssuerDNS01ProviderRFC2136(a.(*v1alpha2.ACMEIssuerDNS01ProviderRFC2136), b.(*acme.ACMEIssuerDNS01ProviderRFC2136), scope)
 	}); err != nil {
@@ -419,7 +439,15 @@ func Convert_acme_ACMEChallenge_To_v1alpha2_ACMEChallenge(in *acme.ACMEChallenge
 func autoConvert_v1alpha2_ACMEChallengeSolver_To_acme_ACMEChallengeSolver(in *v1alpha2.ACMEChallengeSolver, out *acme.ACMEChallengeSolver, s conversion.Scope) error {
 	out.Selector = (*acme.CertificateDNSNameSelector)(unsafe.Pointer(in.Selector))
 	out.HTTP01 = (*acme.ACMEChallengeSolverHTTP01)(unsafe.Pointer(in.HTTP01))
-	out.DNS01 = (*acme.ACMEChallengeSolverDNS01)(unsafe.Pointer(in.DNS01))
+	if in.DNS01 != nil {
+		in, out := &in.DNS01, &out.DNS01
+		*out = new(acme.ACMEChallengeSolverDNS01)
+		if err := Convert_v1alpha2_ACMEChallengeSolverDNS01_To_acme_ACMEChallengeSolverDNS01(*in, *out, s); err != nil {
+			return err
+		}
+	} else {
+		out.DNS01 = nil
+	}
 	return nil
 }
 
@@ -431,7 +459,15 @@ func Convert_v1alpha2_ACMEChallengeSolver_To_acme_ACMEChallengeSolver(in *v1alph
 func autoConvert_acme_ACMEChallengeSolver_To_v1alpha2_ACMEChallengeSolver(in *acme.ACMEChallengeSolver, out *v1alpha2.ACMEChallengeSolver, s conversion.Scope) error {
 	out.Selector = (*v1alpha2.CertificateDNSNameSelector)(unsafe.Pointer(in.Selector))
 	out.HTTP01 = (*v1alpha2.ACMEChallengeSolverHTTP01)(unsafe.Pointer(in.HTTP01))
-	out.DNS01 = (*v1alpha2.ACMEChallengeSolverDNS01)(unsafe.Pointer(in.DNS01))
+	if in.DNS01 != nil {
+		in, out := &in.DNS01, &out.DNS01
+		*out = new(v1alpha2.ACMEChallengeSolverDNS01)
+		if err := Convert_acme_ACMEChallengeSolverDNS01_To_v1alpha2_ACMEChallengeSolverDNS01(*in, *out, s); err != nil {
+			return err
+		}
+	} else {
+		out.DNS01 = nil
+	}
 	return nil
 }
 
@@ -442,6 +478,8 @@ func Convert_acme_ACMEChallengeSolver_To_v1alpha2_ACMEChallengeSolver(in *acme.A
 
 func autoConvert_v1alpha2_ACMEChallengeSolverDNS01_To_acme_ACMEChallengeSolverDNS01(in *v1alpha2.ACMEChallengeSolverDNS01, out *acme.ACMEChallengeSolverDNS01, s conversion.Scope) error {
 	out.CNAMEStrategy = acme.CNAMEStrategy(in.CNAMEStrategy)
+	out.DynDNS = (*acme.ACMEIssuerDNS01ProviderDynDNS)(unsafe.Pointer(in.DynDNS))
+	out.OCIDNS = (*acme.ACMEIssuerDNS01ProviderOCIDNS)(unsafe.Pointer(in.OCIDNS))
 	out.Akamai = (*acme.ACMEIssuerDNS01ProviderAkamai)(unsafe.Pointer(in.Akamai))
 	out.CloudDNS = (*acme.ACMEIssuerDNS01ProviderCloudDNS)(unsafe.Pointer(in.CloudDNS))
 	out.Cloudflare = (*acme.ACMEIssuerDNS01ProviderCloudflare)(unsafe.Pointer(in.Cloudflare))
@@ -465,6 +503,8 @@ func autoConvert_acme_ACMEChallengeSolverDNS01_To_v1alpha2_ACMEChallengeSolverDN
 	out.CloudDNS = (*v1alpha2.ACMEIssuerDNS01ProviderCloudDNS)(unsafe.Pointer(in.CloudDNS))
 	out.Cloudflare = (*v1alpha2.ACMEIssuerDNS01ProviderCloudflare)(unsafe.Pointer(in.Cloudflare))
 	out.Route53 = (*v1alpha2.ACMEIssuerDNS01ProviderRoute53)(unsafe.Pointer(in.Route53))
+	out.OCIDNS = (*v1alpha2.ACMEIssuerDNS01ProviderOCIDNS)(unsafe.Pointer(in.OCIDNS))
+	out.DynDNS = (*v1alpha2.ACMEIssuerDNS01ProviderDynDNS)(unsafe.Pointer(in.DynDNS))
 	out.AzureDNS = (*v1alpha2.ACMEIssuerDNS01ProviderAzureDNS)(unsafe.Pointer(in.AzureDNS))
 	out.DigitalOcean = (*v1alpha2.ACMEIssuerDNS01ProviderDigitalOcean)(unsafe.Pointer(in.DigitalOcean))
 	out.AcmeDNS = (*v1alpha2.ACMEIssuerDNS01ProviderAcmeDNS)(unsafe.Pointer(in.AcmeDNS))
@@ -692,7 +732,17 @@ func autoConvert_v1alpha2_ACMEIssuer_To_acme_ACMEIssuer(in *v1alpha2.ACMEIssuer,
 	if err := s.Convert(&in.PrivateKey, &out.PrivateKey, 0); err != nil {
 		return err
 	}
-	out.Solvers = *(*[]acme.ACMEChallengeSolver)(unsafe.Pointer(&in.Solvers))
+	if in.Solvers != nil {
+		in, out := &in.Solvers, &out.Solvers
+		*out = make([]acme.ACMEChallengeSolver, len(*in))
+		for i := range *in {
+			if err := Convert_v1alpha2_ACMEChallengeSolver_To_acme_ACMEChallengeSolver(&(*in)[i], &(*out)[i], s); err != nil {
+				return err
+			}
+		}
+	} else {
+		out.Solvers = nil
+	}
 	out.DisableAccountKeyGeneration = in.DisableAccountKeyGeneration
 	out.EnableDurationFeature = in.EnableDurationFeature
 	return nil
@@ -713,7 +763,17 @@ func autoConvert_acme_ACMEIssuer_To_v1alpha2_ACMEIssuer(in *acme.ACMEIssuer, out
 	if err := s.Convert(&in.PrivateKey, &out.PrivateKey, 0); err != nil {
 		return err
 	}
-	out.Solvers = *(*[]v1alpha2.ACMEChallengeSolver)(unsafe.Pointer(&in.Solvers))
+	if in.Solvers != nil {
+		in, out := &in.Solvers, &out.Solvers
+		*out = make([]v1alpha2.ACMEChallengeSolver, len(*in))
+		for i := range *in {
+			if err := Convert_acme_ACMEChallengeSolver_To_v1alpha2_ACMEChallengeSolver(&(*in)[i], &(*out)[i], s); err != nil {
+				return err
+			}
+		}
+	} else {
+		out.Solvers = nil
+	}
 	out.DisableAccountKeyGeneration = in.DisableAccountKeyGeneration
 	out.EnableDurationFeature = in.EnableDurationFeature
 	return nil
@@ -900,6 +960,76 @@ func autoConvert_acme_ACMEIssuerDNS01ProviderDigitalOcean_To_v1alpha2_ACMEIssuer
 // Convert_acme_ACMEIssuerDNS01ProviderDigitalOcean_To_v1alpha2_ACMEIssuerDNS01ProviderDigitalOcean is an autogenerated conversion function.
 func Convert_acme_ACMEIssuerDNS01ProviderDigitalOcean_To_v1alpha2_ACMEIssuerDNS01ProviderDigitalOcean(in *acme.ACMEIssuerDNS01ProviderDigitalOcean, out *v1alpha2.ACMEIssuerDNS01ProviderDigitalOcean, s conversion.Scope) error {
 	return autoConvert_acme_ACMEIssuerDNS01ProviderDigitalOcean_To_v1alpha2_ACMEIssuerDNS01ProviderDigitalOcean(in, out, s)
+}
+
+func autoConvert_v1alpha2_ACMEIssuerDNS01ProviderDynDNS_To_acme_ACMEIssuerDNS01ProviderDynDNS(in *v1alpha2.ACMEIssuerDNS01ProviderDynDNS, out *acme.ACMEIssuerDNS01ProviderDynDNS, s conversion.Scope) error {
+	// TODO: Inefficient conversion - can we improve it?
+	if err := s.Convert(&in.DynUsername, &out.DynUsername, 0); err != nil {
+		return err
+	}
+	// TODO: Inefficient conversion - can we improve it?
+	if err := s.Convert(&in.DynPassword, &out.DynPassword, 0); err != nil {
+		return err
+	}
+	// TODO: Inefficient conversion - can we improve it?
+	if err := s.Convert(&in.DynCustomerName, &out.DynCustomerName, 0); err != nil {
+		return err
+	}
+	out.DynZoneName = in.DynZoneName
+	return nil
+}
+
+// Convert_v1alpha2_ACMEIssuerDNS01ProviderDynDNS_To_acme_ACMEIssuerDNS01ProviderDynDNS is an autogenerated conversion function.
+func Convert_v1alpha2_ACMEIssuerDNS01ProviderDynDNS_To_acme_ACMEIssuerDNS01ProviderDynDNS(in *v1alpha2.ACMEIssuerDNS01ProviderDynDNS, out *acme.ACMEIssuerDNS01ProviderDynDNS, s conversion.Scope) error {
+	return autoConvert_v1alpha2_ACMEIssuerDNS01ProviderDynDNS_To_acme_ACMEIssuerDNS01ProviderDynDNS(in, out, s)
+}
+
+func autoConvert_acme_ACMEIssuerDNS01ProviderDynDNS_To_v1alpha2_ACMEIssuerDNS01ProviderDynDNS(in *acme.ACMEIssuerDNS01ProviderDynDNS, out *v1alpha2.ACMEIssuerDNS01ProviderDynDNS, s conversion.Scope) error {
+	// TODO: Inefficient conversion - can we improve it?
+	if err := s.Convert(&in.DynUsername, &out.DynUsername, 0); err != nil {
+		return err
+	}
+	// TODO: Inefficient conversion - can we improve it?
+	if err := s.Convert(&in.DynPassword, &out.DynPassword, 0); err != nil {
+		return err
+	}
+	// TODO: Inefficient conversion - can we improve it?
+	if err := s.Convert(&in.DynCustomerName, &out.DynCustomerName, 0); err != nil {
+		return err
+	}
+	out.DynZoneName = in.DynZoneName
+	return nil
+}
+
+// Convert_acme_ACMEIssuerDNS01ProviderDynDNS_To_v1alpha2_ACMEIssuerDNS01ProviderDynDNS is an autogenerated conversion function.
+func Convert_acme_ACMEIssuerDNS01ProviderDynDNS_To_v1alpha2_ACMEIssuerDNS01ProviderDynDNS(in *acme.ACMEIssuerDNS01ProviderDynDNS, out *v1alpha2.ACMEIssuerDNS01ProviderDynDNS, s conversion.Scope) error {
+	return autoConvert_acme_ACMEIssuerDNS01ProviderDynDNS_To_v1alpha2_ACMEIssuerDNS01ProviderDynDNS(in, out, s)
+}
+
+func autoConvert_v1alpha2_ACMEIssuerDNS01ProviderOCIDNS_To_acme_ACMEIssuerDNS01ProviderOCIDNS(in *v1alpha2.ACMEIssuerDNS01ProviderOCIDNS, out *acme.ACMEIssuerDNS01ProviderOCIDNS, s conversion.Scope) error {
+	out.UseInstancePrincipals = in.UseInstancePrincipals
+	out.ServiceAccount = (*meta.SecretKeySelector)(unsafe.Pointer(in.ServiceAccount))
+	out.CompartmentId = in.CompartmentId
+	out.OciZoneName = in.OciZoneName
+	return nil
+}
+
+// Convert_v1alpha2_ACMEIssuerDNS01ProviderOCIDNS_To_acme_ACMEIssuerDNS01ProviderOCIDNS is an autogenerated conversion function.
+func Convert_v1alpha2_ACMEIssuerDNS01ProviderOCIDNS_To_acme_ACMEIssuerDNS01ProviderOCIDNS(in *v1alpha2.ACMEIssuerDNS01ProviderOCIDNS, out *acme.ACMEIssuerDNS01ProviderOCIDNS, s conversion.Scope) error {
+	return autoConvert_v1alpha2_ACMEIssuerDNS01ProviderOCIDNS_To_acme_ACMEIssuerDNS01ProviderOCIDNS(in, out, s)
+}
+
+func autoConvert_acme_ACMEIssuerDNS01ProviderOCIDNS_To_v1alpha2_ACMEIssuerDNS01ProviderOCIDNS(in *acme.ACMEIssuerDNS01ProviderOCIDNS, out *v1alpha2.ACMEIssuerDNS01ProviderOCIDNS, s conversion.Scope) error {
+	out.UseInstancePrincipals = in.UseInstancePrincipals
+	out.ServiceAccount = (*metav1.SecretKeySelector)(unsafe.Pointer(in.ServiceAccount))
+	out.CompartmentId = in.CompartmentId
+	out.OciZoneName = in.OciZoneName
+	return nil
+}
+
+// Convert_acme_ACMEIssuerDNS01ProviderOCIDNS_To_v1alpha2_ACMEIssuerDNS01ProviderOCIDNS is an autogenerated conversion function.
+func Convert_acme_ACMEIssuerDNS01ProviderOCIDNS_To_v1alpha2_ACMEIssuerDNS01ProviderOCIDNS(in *acme.ACMEIssuerDNS01ProviderOCIDNS, out *v1alpha2.ACMEIssuerDNS01ProviderOCIDNS, s conversion.Scope) error {
+	return autoConvert_acme_ACMEIssuerDNS01ProviderOCIDNS_To_v1alpha2_ACMEIssuerDNS01ProviderOCIDNS(in, out, s)
 }
 
 func autoConvert_v1alpha2_ACMEIssuerDNS01ProviderRFC2136_To_acme_ACMEIssuerDNS01ProviderRFC2136(in *v1alpha2.ACMEIssuerDNS01ProviderRFC2136, out *acme.ACMEIssuerDNS01ProviderRFC2136, s conversion.Scope) error {

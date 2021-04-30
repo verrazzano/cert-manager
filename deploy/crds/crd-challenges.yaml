@@ -130,7 +130,7 @@ spec:
                             host:
                               type: string
                         akamai:
-                          description: Use the Akamai DNS zone management API to manage DNS01 challenge records.
+                          description: ACMEIssuerDNS01ProviderAkamai is a structure containing the DNS configuration for Akamai DNS—Zone Record Management API
                           type: object
                           required:
                             - accessTokenSecretRef
@@ -292,6 +292,77 @@ spec:
                                 name:
                                   description: 'Name of the resource being referred to. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
                                   type: string
+                        dyndns:
+                          description: Use the Akamai DNS zone management API to manage DNS01 challenge records.
+                          type: object
+                          required:
+                            - accessTokenSecretRef
+                            - clientSecretSecretRef
+                            - clientTokenSecretRef
+                            - dynzonename
+                          properties:
+                            accessTokenSecretRef:
+                              description: A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+                              type: object
+                              required:
+                                - name
+                              properties:
+                                key:
+                                  description: The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
+                                  type: string
+                                name:
+                                  description: 'Name of the resource being referred to. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                  type: string
+                            clientSecretSecretRef:
+                              description: A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+                              type: object
+                              required:
+                                - name
+                              properties:
+                                key:
+                                  description: The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
+                                  type: string
+                                name:
+                                  description: 'Name of the resource being referred to. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                  type: string
+                            clientTokenSecretRef:
+                              description: A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+                              type: object
+                              required:
+                                - name
+                              properties:
+                                key:
+                                  description: The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
+                                  type: string
+                                name:
+                                  description: 'Name of the resource being referred to. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                  type: string
+                            dynzonename:
+                              type: string
+                        ocidns:
+                          description: ACMEIssuerDNS01ProviderOCIDNS is a structure containing the DNS configuration for OCIDNS DNS—Zone Record Management API
+                          type: object
+                          required:
+                            - ocizonename
+                          properties:
+                            compartmentid:
+                              type: string
+                            ocizonename:
+                              type: string
+                            serviceAccountSecretRef:
+                              description: A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+                              type: object
+                              required:
+                                - name
+                              properties:
+                                key:
+                                  description: The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
+                                  type: string
+                                name:
+                                  description: 'Name of the resource being referred to. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                  type: string
+                            useInstancePrincipals:
+                              type: boolean
                         rfc2136:
                           description: Use RFC2136 ("Dynamic Updates in the Domain Name System") (https://datatracker.ietf.org/doc/rfc2136/) to manage DNS01 challenge records.
                           type: object
@@ -955,7 +1026,7 @@ spec:
                             host:
                               type: string
                         akamai:
-                          description: Use the Akamai DNS zone management API to manage DNS01 challenge records.
+                          description: ACMEIssuerDNS01ProviderAkamai is a structure containing the DNS configuration for Akamai DNS—Zone Record Management API
                           type: object
                           required:
                             - accessTokenSecretRef
@@ -1117,6 +1188,77 @@ spec:
                                 name:
                                   description: 'Name of the resource being referred to. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
                                   type: string
+                        dyndns:
+                          description: Use the Akamai DNS zone management API to manage DNS01 challenge records.
+                          type: object
+                          required:
+                            - accessTokenSecretRef
+                            - clientSecretSecretRef
+                            - clientTokenSecretRef
+                            - dynzonename
+                          properties:
+                            accessTokenSecretRef:
+                              description: A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+                              type: object
+                              required:
+                                - name
+                              properties:
+                                key:
+                                  description: The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
+                                  type: string
+                                name:
+                                  description: 'Name of the resource being referred to. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                  type: string
+                            clientSecretSecretRef:
+                              description: A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+                              type: object
+                              required:
+                                - name
+                              properties:
+                                key:
+                                  description: The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
+                                  type: string
+                                name:
+                                  description: 'Name of the resource being referred to. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                  type: string
+                            clientTokenSecretRef:
+                              description: A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+                              type: object
+                              required:
+                                - name
+                              properties:
+                                key:
+                                  description: The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
+                                  type: string
+                                name:
+                                  description: 'Name of the resource being referred to. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                  type: string
+                            dynzonename:
+                              type: string
+                        ocidns:
+                          description: ACMEIssuerDNS01ProviderOCIDNS is a structure containing the DNS configuration for OCIDNS DNS—Zone Record Management API
+                          type: object
+                          required:
+                            - ocizonename
+                          properties:
+                            compartmentid:
+                              type: string
+                            ocizonename:
+                              type: string
+                            serviceAccountSecretRef:
+                              description: A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+                              type: object
+                              required:
+                                - name
+                              properties:
+                                key:
+                                  description: The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
+                                  type: string
+                                name:
+                                  description: 'Name of the resource being referred to. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                  type: string
+                            useInstancePrincipals:
+                              type: boolean
                         rfc2136:
                           description: Use RFC2136 ("Dynamic Updates in the Domain Name System") (https://datatracker.ietf.org/doc/rfc2136/) to manage DNS01 challenge records.
                           type: object
@@ -1943,6 +2085,77 @@ spec:
                                 name:
                                   description: 'Name of the resource being referred to. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
                                   type: string
+                        dyndns:
+                          description: ACMEIssuerDNS01ProviderDynDNS is a structure containing the DNS configuration for DynDNS DNS—Zone Record Management API
+                          type: object
+                          required:
+                            - accessTokenSecretRef
+                            - clientSecretSecretRef
+                            - clientTokenSecretRef
+                            - dynzonename
+                          properties:
+                            accessTokenSecretRef:
+                              description: A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+                              type: object
+                              required:
+                                - name
+                              properties:
+                                key:
+                                  description: The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
+                                  type: string
+                                name:
+                                  description: 'Name of the resource being referred to. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                  type: string
+                            clientSecretSecretRef:
+                              description: A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+                              type: object
+                              required:
+                                - name
+                              properties:
+                                key:
+                                  description: The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
+                                  type: string
+                                name:
+                                  description: 'Name of the resource being referred to. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                  type: string
+                            clientTokenSecretRef:
+                              description: A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+                              type: object
+                              required:
+                                - name
+                              properties:
+                                key:
+                                  description: The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
+                                  type: string
+                                name:
+                                  description: 'Name of the resource being referred to. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                  type: string
+                            dynzonename:
+                              type: string
+                        ocidns:
+                          description: ACMEIssuerDNS01ProviderOCIDNS is a structure containing the DNS configuration for OCIDNS DNS—Zone Record Management API
+                          type: object
+                          required:
+                            - ocizonename
+                          properties:
+                            compartmentid:
+                              type: string
+                            ocizonename:
+                              type: string
+                            serviceAccountSecretRef:
+                              description: A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+                              type: object
+                              required:
+                                - name
+                              properties:
+                                key:
+                                  description: The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
+                                  type: string
+                                name:
+                                  description: 'Name of the resource being referred to. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                  type: string
+                            useInstancePrincipals:
+                              type: boolean
                         rfc2136:
                           description: Use RFC2136 ("Dynamic Updates in the Domain Name System") (https://datatracker.ietf.org/doc/rfc2136/) to manage DNS01 challenge records.
                           type: object
@@ -2769,6 +2982,77 @@ spec:
                                 name:
                                   description: 'Name of the resource being referred to. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
                                   type: string
+                        dyndns:
+                          description: ACMEIssuerDNS01ProviderDynDNS is a structure containing the DNS configuration for DynDNS DNS—Zone Record Management API
+                          type: object
+                          required:
+                            - accessTokenSecretRef
+                            - clientSecretSecretRef
+                            - clientTokenSecretRef
+                            - dynzonename
+                          properties:
+                            accessTokenSecretRef:
+                              description: A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+                              type: object
+                              required:
+                                - name
+                              properties:
+                                key:
+                                  description: The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
+                                  type: string
+                                name:
+                                  description: 'Name of the resource being referred to. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                  type: string
+                            clientSecretSecretRef:
+                              description: A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+                              type: object
+                              required:
+                                - name
+                              properties:
+                                key:
+                                  description: The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
+                                  type: string
+                                name:
+                                  description: 'Name of the resource being referred to. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                  type: string
+                            clientTokenSecretRef:
+                              description: A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+                              type: object
+                              required:
+                                - name
+                              properties:
+                                key:
+                                  description: The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
+                                  type: string
+                                name:
+                                  description: 'Name of the resource being referred to. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                  type: string
+                            dynzonename:
+                              type: string
+                        ocidns:
+                          description: ACMEIssuerDNS01ProviderOCIDNS is a structure containing the DNS configuration for OCIDNS DNS—Zone Record Management API
+                          type: object
+                          required:
+                            - ocizonename
+                          properties:
+                            compartmentid:
+                              type: string
+                            ocizonename:
+                              type: string
+                            serviceAccountSecretRef:
+                              description: A reference to a specific 'key' within a Secret resource. In some instances, `key` is a required field.
+                              type: object
+                              required:
+                                - name
+                              properties:
+                                key:
+                                  description: The key of the entry in the Secret resource's `data` field to be used. Some instances of this field may be defaulted, in others it may be required.
+                                  type: string
+                                name:
+                                  description: 'Name of the resource being referred to. More info: https://kubernetes.io/docs/concepts/overview/working-with-objects/names/#names'
+                                  type: string
+                            useInstancePrincipals:
+                              type: boolean
                         rfc2136:
                           description: Use RFC2136 ("Dynamic Updates in the Domain Name System") (https://datatracker.ietf.org/doc/rfc2136/) to manage DNS01 challenge records.
                           type: object

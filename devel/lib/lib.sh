@@ -108,5 +108,5 @@ load_image() {
     # built with
     return
   fi
-  kind load docker-image --name "$KIND_CLUSTER_NAME" "$IMAGE_NAME"
+#  kind load docker-image --name "$KIND_CLUSTER_NAME" "$IMAGE_NAME"
 }
