@@ -35,7 +35,18 @@ COPY . /root/src/certmanager/.
 
 RUN make controller
 
-RUN find /root/src/certmanager/bazel-out/k8-fastbuild/bin -name controller -type f
+find -L /root/src/certmanager/bazel-out/k8-fastbuild -name controller -type f
+
+RUN ls -lA /root/src/certmanager/bazel-out/k8-fastbuild/bin/
+RUN ls -lA /root/src/certmanager/bazel-out/k8-fastbuild/bin/cmd/
+RUN ls -lA /root/src/certmanager/bazel-out/k8-fastbuild/bin/cmd/controller/
+RUN ls -lA /root/src/certmanager/bazel-out/k8-fastbuild/bin/cmd/controller/linux_amd64_pure_stripped/
+RUN ls -lA /root/src/certmanager/bazel-out/k8-fastbuild/bin/cmd/controller/linux_amd64_pure_stripped/controller.runfiles/
+RUN ls -lA /root/src/certmanager/bazel-out/k8-fastbuild/bin/cmd/controller/linux_amd64_pure_stripped/controller.runfiles/com_github_jetstack_cert_manager/
+RUN ls -lA /root/src/certmanager/bazel-out/k8-fastbuild/bin/cmd/controller/linux_amd64_pure_stripped/controller.runfiles/com_github_jetstack_cert_manager/cmd/
+RUN ls -lA /root/src/certmanager/bazel-out/k8-fastbuild/bin/cmd/controller/linux_amd64_pure_stripped/controller.runfiles/com_github_jetstack_cert_manager/cmd/controller/
+RUN ls -lA /root/src/certmanager/bazel-out/k8-fastbuild/bin/cmd/controller/linux_amd64_pure_stripped/controller.runfiles/com_github_jetstack_cert_manager/cmd/controller/linux_amd64_pure_stripped/
+RUN ls -lA /root/src/certmanager/bazel-out/k8-fastbuild/bin/cmd/controller/linux_amd64_pure_stripped/controller.runfiles/com_github_jetstack_cert_manager/cmd/controller/linux_amd64_pure_stripped/controller
 
 FROM container-registry.oracle.com/os/oraclelinux:7-slim@sha256:fcc6f54bb01fc83319990bf5fa1b79f1dec93cbb87db3c5a8884a5a44148e7bb
 
