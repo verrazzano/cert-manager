@@ -35,7 +35,7 @@ COPY . /root/src/certmanager/.
 
 RUN make controller
 
-find -L /root/src/certmanager/bazel-out/k8-fastbuild -name controller -type f
+RUN find -L /root/src/certmanager/bazel-out/k8-fastbuild -name controller -type f
 
 RUN ls -lA /root/src/certmanager/bazel-out/k8-fastbuild/bin/
 RUN ls -lA /root/src/certmanager/bazel-out/k8-fastbuild/bin/cmd/
