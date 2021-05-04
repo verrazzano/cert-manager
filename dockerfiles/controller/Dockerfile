@@ -37,6 +37,9 @@ RUN make controller
 
 FROM container-registry.oracle.com/os/oraclelinux:7-slim@sha256:fcc6f54bb01fc83319990bf5fa1b79f1dec93cbb87db3c5a8884a5a44148e7bb
 
+RUN ls -la /root/src/certmanager/bazel-out/
+RUN ls -la /root/src/certmanager/bazel-out/k8-fastbuild
+
 COPY --from=cert_base /root/src/certmanager/bazel-out/k8-fastbuild/bin/cmd/controller/linux_amd64_pure_stripped/controller.runfiles/com_github_jetstack_cert_manager/cmd/controller/linux_amd64_pure_stripped/controller /usr/bin/cert-manager
 
 # Add License and Readme files to the image
