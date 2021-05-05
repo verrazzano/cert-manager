@@ -37,6 +37,13 @@ RUN make controller
 
 FROM container-registry.oracle.com/os/oraclelinux:7-slim@sha256:9b86d1332a883ee8f68dd44ba42133de518b2e0ec1cc70257e59fb4da86b1ad3
 
+# update the packages which have been flagged as having vulnerabilities in the image scan
+RUN yum update -y \
+    && yum install -y dbus-libs bind-license dbus expat bind-license bash libxml2 shared-mime-info python libxml2-python python-libs libcurl curl file-libs unzip nspr nss-util glib2 nss-sysinit nss-softokn-freebl openldap nss-tools cpio libcom_err libssh2 nss systemd-libs glibc glibc-common systemd \
+    && yum clean all \
+    && rm -rf /var/cache/yum
+
+# the hash in this path is the hash of the output path so hard coding it here is ok as long as we don't change the output path
 COPY --from=cert_base /root/src/certmanager/bazel-out/k8-fastbuild-ST-5e46445d989a02f948782b024db718465cb931c7b73759c1823f80cfbb4c6af3/bin/cmd/controller/controller_/controller /usr/bin/cert-manager
 
 # Add License and Readme files to the image
