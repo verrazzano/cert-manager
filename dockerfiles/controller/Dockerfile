@@ -37,13 +37,6 @@ RUN make controller
 
 FROM container-registry.oracle.com/os/oraclelinux:7-slim@sha256:fcc6f54bb01fc83319990bf5fa1b79f1dec93cbb87db3c5a8884a5a44148e7bb
 
-RUN ls -la /root/src/certmanager/bazel-out/k8-fastbuild-ST-*/
-RUN ls -la /root/src/certmanager/bazel-out/k8-fastbuild-ST-*/bin/
-RUN ls -la /root/src/certmanager/bazel-out/k8-fastbuild-ST-*/bin/cmd/
-RUN ls -la /root/src/certmanager/bazel-out/k8-fastbuild-ST-*/bin/cmd/controller/
-RUN ls -la /root/src/certmanager/bazel-out/k8-fastbuild-ST-*/bin/cmd/controller/controller_/
-RUN ls -la /root/src/certmanager/bazel-out/k8-fastbuild-ST-*/bin/cmd/controller/controller_/controller
-
 COPY --from=cert_base /root/src/certmanager/bazel-out/k8-fastbuild-ST-*/bin/cmd/controller/controller_/controller /usr/bin/cert-manager
 
 # Add License and Readme files to the image
