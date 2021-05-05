@@ -2,7 +2,7 @@
 # Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
 
 # builder image
-FROM container-registry.oracle.com/os/oraclelinux:8@sha256:816d99f0bbe8c6cca3d2935865e23e754483d2cface2476d21376a7c656d920f as cert_base
+FROM container-registry.oracle.com/os/oraclelinux:8 as cert_base
 
 RUN yum update -y \
     && yum-config-manager --save --setopt=ol7_ociyum_config.skip_if_unavailable=true \
@@ -35,7 +35,7 @@ COPY . /root/src/certmanager/.
 
 RUN make controller
 
-FROM container-registry.oracle.com/os/oraclelinux:8-slim@sha256:83644dd0a3c3cdfeac738cff70300a65cfb7577eb86fac431a572126a3a65133
+FROM container-registry.oracle.com/os/oraclelinux:8-slim
 
 COPY --from=cert_base /root/src/certmanager/bazel-out/k8-fastbuild-ST-5e46445d989a02f948782b024db718465cb931c7b73759c1823f80cfbb4c6af3/bin/cmd/controller/controller_/controller /usr/bin/cert-manager
 
