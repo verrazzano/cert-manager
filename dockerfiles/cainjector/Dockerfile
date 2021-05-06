@@ -8,7 +8,7 @@ RUN yum update -y \
     && yum-config-manager --save --setopt=ol7_ociyum_config.skip_if_unavailable=true \
     && yum install -y oracle-golang-release-el7 \
     && yum-config-manager --enable ol7_developer_golang113 \
-    && yum-config-manager --add-repo http://yum.oracle.com/repo/OracleLinux/OL7/developer/golang113/x86_64 \
+    && yum-config-manager --add-repo http://yum.oracle.com/repo/OracleLinux/OL7/developer/golang114/x86_64 \
     && yum install -y git gcc make golang-1.13.3-1.el7.x86_64 \
     && yum -y install yum-utils unzip \
     && yum -y install which patch \
@@ -37,7 +37,8 @@ RUN make cainjector
 
 FROM container-registry.oracle.com/os/oraclelinux:7-slim@sha256:fcc6f54bb01fc83319990bf5fa1b79f1dec93cbb87db3c5a8884a5a44148e7bb
 
-COPY --from=cert_base /root/src/cainjector/bazel-out/k8-fastbuild/bin/cmd/cainjector/linux_amd64_pure_stripped/cainjector.runfiles/com_github_jetstack_cert_manager/cmd/cainjector/linux_amd64_pure_stripped/cainjector /usr/bin/cainjector
+# the hash in this path is the hash of the output path so hard coding it here is ok as long as we don't change the output path
+COPY --from=cert_base /root/src/certmanager/bazel-out/k8-fastbuild-ST-5e46445d989a02f948782b024db718465cb931c7b73759c1823f80cfbb4c6af3/bin/cmd/cainjector/cainjector_/cainjector /usr/bin/cainjector
 
 RUN ls -la /usr/bin/cainjector
 
