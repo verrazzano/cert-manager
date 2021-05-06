@@ -12,9 +12,12 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-# Set DOCKER_REGISTRY to customise the image docker repo, e.g. "quay.io/jetstack"
-DOCKER_REGISTRY :=
-APP_VERSION :=
+# Copyright (C) 2020, 2021, Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
+# Set DOCKER_REPO to customise the image docker repo, e.g. "quay.io/jetstack"
+DOCKER_REPO :=
+APP_VERSION := canary
 HACK_DIR ?= hack
 
 # Get a list of all binaries to be built

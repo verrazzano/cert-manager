@@ -12,6 +12,9 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
+# Copyright (C) 2020, 2021, Oracle and/or its affiliates.
+# Licensed under the Universal Permissive License v 1.0 as shown at https://oss.oracle.com/licenses/upl.
+
 ## This file is copied and modified from https://github.com/kubernetes/kubernetes/blob/a06d16565cc5c129241f306d04a12fd94585d956/build/platforms.bzl
 
 load("@bazel_skylib//lib:new_sets.bzl", "sets")
