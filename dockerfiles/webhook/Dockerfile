@@ -37,6 +37,12 @@ RUN make webhook
 
 FROM container-registry.oracle.com/os/oraclelinux:7-slim@sha256:fcc6f54bb01fc83319990bf5fa1b79f1dec93cbb87db3c5a8884a5a44148e7bb
 
+# update the packages which have been flagged as having vulnerabilities in the image scan
+RUN yum update -y \
+    && yum install -y dbus-libs bind-license dbus expat bind-license bash libxml2 shared-mime-info python libxml2-python python-libs libcurl curl file-libs unzip nspr nss-util glib2 nss-sysinit nss-softokn-freebl openldap nss-tools cpio libcom_err libssh2 nss systemd-libs glibc glibc-common systemd \
+    && yum clean all \
+    && rm -rf /var/cache/yum
+
 # the hash in this path is the hash of the output path so hard coding it here is ok as long as we don't change the output path
 COPY --from=cert_base /root/src/certmanager/bazel-out/k8-fastbuild-ST-5e46445d989a02f948782b024db718465cb931c7b73759c1823f80cfbb4c6af3/bin/cmd/webhook/webhook_/webhook /usr/bin/webhook
 
