@@ -44,7 +44,7 @@ RUN yum update -y \
     && rm -rf /var/cache/yum
 
 # the hash in this path is the hash of the output path so hard coding it here is ok as long as we don't change the output path
-COPY --from=cert_base /root/src/certmanager/bazel-out/k8-fastbuild-ST-5e46445d989a02f948782b024db718465cb931c7b73759c1823f80cfbb4c6af3/bin/cmd/acmesolver/acmesolver_/acmesolver /usr/bin/acmesolver
+COPY --from=cert_base /root/src/acmesolver/bazel-out/k8-fastbuild-ST-5e46445d989a02f948782b024db718465cb931c7b73759c1823f80cfbb4c6af3/bin/cmd/acmesolver/acmesolver_/acmesolver /usr/bin/acmesolver
 
 COPY LICENSE LICENSES README.md CONTRIBUTING.md THIRD_PARTY_LICENSES.txt  /license/
 
